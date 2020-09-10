@@ -3,6 +3,7 @@ using Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Data
 {
@@ -22,5 +23,10 @@ namespace Data
         public IPositionRepository PositionRepository => new PositionRepository(context);
 
         public IHistoryRepository HistoryRepository => new HistoryRepository(context);
+
+        public async Task Save()
+        {
+            await context.SaveChangesAsync();
+        }
     }
 }

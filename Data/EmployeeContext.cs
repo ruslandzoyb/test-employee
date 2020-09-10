@@ -11,15 +11,7 @@ namespace Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<EmployeePosition> EmployeePositions { get; set; }
-        public EmployeeContext()
-        {
-            Database.EnsureCreated();
-        }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server = (localdb)\\MSSQLLocalDB; Database = EmployeeDB; Trusted_Connection = True; ");
-
-        }
+        
 
         public EmployeeContext(DbContextOptions<EmployeeContext> options):base(options)
         {
