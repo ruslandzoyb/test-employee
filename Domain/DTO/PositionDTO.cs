@@ -8,6 +8,6 @@ namespace Domain.DTO
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        public IEnumerable<EmployeeDTO> Emplyees { get; set; }
+        public IEnumerable<EmployeeDTO> Employees { get; set; }
     }
 }

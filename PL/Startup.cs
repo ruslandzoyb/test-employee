@@ -41,6 +41,7 @@ namespace PL
 
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IHistoryService, HistoryService>();
+            services.AddTransient<IPositionService, PositionService>();
 
             var mapper = new MapperConfiguration(x => x.AddProfile(new MapProfile())).CreateMapper();
             services.AddSingleton(mapper);
