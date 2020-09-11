@@ -1,4 +1,6 @@
-﻿using Data.Interfaces;
+﻿using AutoMapper;
+using Data.Entities;
+using Data.Interfaces;
 using Domain.DTO;
 using Domain.Interfaces;
 using System;
@@ -11,35 +13,44 @@ namespace Domain.Services
     public class EmployeeService : IEmployeeService
     {
         readonly IUnitOfWork db;
+        readonly IMapper mapper;
 
-        public EmployeeService(IUnitOfWork db)
+        public EmployeeService(IUnitOfWork db,IMapper mapper)
         {
             this.db = db;
+            this.mapper = mapper;
         }
 
-        public Task<EmplyeeDTO> Add(EmplyeeDTO entity)
+        public async Task<EmployeeDTO> Add(EmployeeDTO entity)
         {
-            throw new NotImplementedException();
+           var model= await db.EmployeeRepository.Add(mapper.Map<Employee>(entity));
+            entity.Id = model.Id;
+            await db.Save();
+            return entity;
+
         }
 
-        public Task<EmplyeeDTO> Get(int id)
+        public async Task<EmployeeDTO> Get(int id)
         {
-            throw new NotImplementedException();
+            return mapper.Map<EmployeeDTO>(await db.EmployeeRepository.Get(id));
         }
 
-        public Task<IEnumerable<EmplyeeDTO>> GetList()
+        public async Task<IEnumerable<EmployeeDTO>> GetList()
         {
-            throw new NotImplementedException();
+            return mapper.Map<IEnumerable<EmployeeDTO>>(await db.EmployeeRepository.GetList());
         }
 
-        public Task Remove(int id)
+        public async Task Remove(int id)
         {
-            throw new NotImplementedException();
+            await db.EmployeeRepository.Delete(id);
+            await db.Save();
+
         }
 
-        public Task Update(EmplyeeDTO entity)
+        public async Task Update(EmployeeDTO entity)
         {
-            throw new NotImplementedException();
+            db.EmployeeRepository.Update(mapper.Map<Employee>(entity));
+            await db.Save();
         }
     }
 }

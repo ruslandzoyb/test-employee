@@ -8,7 +8,7 @@ namespace Domain.DTO
     {
         public int Id { get; set; }
         public int EmployeeId { get; set; }
-        public EmplyeeDTO Emplyee { get; set; }
+        public EmployeeDTO Emplyee { get; set; }
 
         public int PositionId { get; set; }
         public PositionDTO Position { get; set; }

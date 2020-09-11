@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain.Interfaces
 {
-   public interface IEmployeeService :ICrud<EmplyeeDTO>
+   public interface IEmployeeService :ICrud<EmployeeDTO>
     {
 
     }
