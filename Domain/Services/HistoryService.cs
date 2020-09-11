@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Data.Entities;
 using Data.Interfaces;
 using Domain.DTO;
 using Domain.Interfaces;
@@ -18,14 +19,17 @@ namespace Domain.Services
             this.db = db;
             this.mapper = mapper;
         }
-        public Task<History> Add(History entity)
+        public async Task<History> Add(History entity)
         {
-            throw new NotImplementedException();
+           var history=  await db.HistoryRepository.Add(mapper.Map<EmployeePosition>(entity));
+            await db.Save();
+            entity.Id = history.Id;
+            return entity;
         }
 
-        public Task<History> Get(int id)
+        public async Task<History> Get(int id)
         {
-            throw new NotImplementedException();
+            return mapper.Map<History>(await db.HistoryRepository.Get(id));
         }
 
         public async Task<IEnumerable<History>> GetList()
@@ -35,14 +39,17 @@ namespace Domain.Services
 
         
 
-        public Task Remove(int id)
+        public async Task Remove(int id)
         {
-            throw new NotImplementedException();
+            await db.HistoryRepository.Delete(id);
+            await db.Save();
         }
 
-        public Task Update(History entity)
+        public async Task Update(History entity)
         {
-            throw new NotImplementedException();
+             db.HistoryRepository.Update(mapper.Map<EmployeePosition>(entity));
+            await db.Save();
+
         }
     }
 }

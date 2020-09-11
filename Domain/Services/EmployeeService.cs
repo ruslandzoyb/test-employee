@@ -5,6 +5,7 @@ using Domain.DTO;
 using Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,12 @@ namespace Domain.Services
 
         public async Task<EmployeeDTO> Add(EmployeeDTO entity)
         {
+            var exist = await IsEmployeeExist(entity);
+            if (exist!=null)
+            {
+                return mapper.Map<EmployeeDTO>(exist);
+            }
+
            var model= await db.EmployeeRepository.Add(mapper.Map<Employee>(entity));
             entity.Id = model.Id;
             await db.Save();
@@ -51,6 +58,17 @@ namespace Domain.Services
         {
             db.EmployeeRepository.Update(mapper.Map<Employee>(entity));
             await db.Save();
+        }
+
+        private async Task<Employee> IsEmployeeExist(EmployeeDTO employee)
+        {
+            // var entity =await db.EmployeeRepository.Get(employee.Id);
+            var entity =await  db.EmployeeRepository.Get(x => x.Name == employee.Name && x.Surname == employee.Surname);
+            if (entity is null)
+            {
+                return null; 
+            }
+            return entity;
         }
     }
 }
