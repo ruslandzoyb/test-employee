@@ -3,6 +3,7 @@ using Data.Entities;
 using Data.Interfaces;
 using Domain.DTO;
 using Domain.Interfaces;
+using Domain.Validation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,6 +24,7 @@ namespace Domain.Services
 
         public async Task<PositionDTO> Add(PositionDTO entity)
         {
+            BLValidation.CheckPosition(entity);
             var exist = await IsPositionExist(entity);
             if (exist != null)
             {
@@ -52,6 +54,7 @@ namespace Domain.Services
 
         public async Task Update(PositionDTO entity)
         {
+            BLValidation.CheckPosition(entity);
             db.PositionRepository.Update(mapper.Map<Position>(entity));
             await db.Save();
         }

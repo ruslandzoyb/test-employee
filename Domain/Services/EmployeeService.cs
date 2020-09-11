@@ -3,6 +3,7 @@ using Data.Entities;
 using Data.Interfaces;
 using Domain.DTO;
 using Domain.Interfaces;
+using Domain.Validation;
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
@@ -24,6 +25,7 @@ namespace Domain.Services
 
         public async Task<EmployeeDTO> Add(EmployeeDTO entity)
         {
+            BLValidation.CheckEmployee(entity);
             var exist = await IsEmployeeExist(entity);
             if (exist!=null)
             {
@@ -56,6 +58,7 @@ namespace Domain.Services
 
         public async Task Update(EmployeeDTO entity)
         {
+            BLValidation.CheckEmployee(entity);
             db.EmployeeRepository.Update(mapper.Map<Employee>(entity));
             await db.Save();
         }

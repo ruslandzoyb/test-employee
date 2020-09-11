@@ -3,6 +3,7 @@ using Data.Entities;
 using Data.Interfaces;
 using Domain.DTO;
 using Domain.Interfaces;
+using Domain.Validation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,7 +22,8 @@ namespace Domain.Services
         }
         public async Task<History> Add(History entity)
         {
-           var history=  await db.HistoryRepository.Add(mapper.Map<EmployeePosition>(entity));
+            BLValidation.CheckHistory(entity);
+            var history=  await db.HistoryRepository.Add(mapper.Map<EmployeePosition>(entity));
             await db.Save();
             entity.Id = history.Id;
             return entity;
@@ -47,7 +49,8 @@ namespace Domain.Services
 
         public async Task Update(History entity)
         {
-             db.HistoryRepository.Update(mapper.Map<EmployeePosition>(entity));
+            BLValidation.CheckHistory(entity);
+            db.HistoryRepository.Update(mapper.Map<EmployeePosition>(entity));
             await db.Save();
 
         }
