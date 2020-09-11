@@ -11,6 +11,7 @@ namespace Data.Entities
 
         public int PositionId { get; set; }
         public Position Position { get; set; }
+        public double Salary { get; set; }
 
 
         public DateTime Hired { get; set; }

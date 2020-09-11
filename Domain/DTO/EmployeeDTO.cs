@@ -9,6 +9,7 @@ namespace Domain.DTO
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+
         public IEnumerable<PositionDTO> Positions { get; set; }
     }
 }

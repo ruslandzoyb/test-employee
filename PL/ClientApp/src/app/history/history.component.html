@@ -1,0 +1,32 @@
+
+<div>
+    <form>
+        <button style="float: left; margin-bottom: 10px;" type="button" class="btn btn-primary">Добавить сотрудника</button>
+        <button style="float: right; margin-bottom: 10px" type="button" class="btn btn-dark" (click)="OnCreatePosition">Добавить должность</button>
+      
+    </form>
+
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Должность</th>
+            <th scope="col">Сотрудник</th>
+            <th scope="col">Оклад</th>
+            <th scope="col">Дата назначения</th>
+            <th scope="col">Дата увольнения</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of histories">
+              <td>{{item.id}}</td>
+              <td>{{item.position.title}}</td>
+              <td>{{item.employee.name +" "+ item.employee.surname}} </td>
+              <td>{{item.salary}}</td>
+              <td>{{item.hired}}</td>
+              <td>{{item.fired}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+</div>

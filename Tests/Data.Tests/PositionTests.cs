@@ -113,6 +113,29 @@ namespace Tests.Data.Tests
 
         }
 
+
+        [Test]
+        public async Task Update()
+        {
+            //arrange 
+            int id = 2;
+            string title = "Senior DEV";
+            string expected_title = "update";
+
+            using (var context = new EmployeeContext(Helper.GetContextInMemory()))
+            {
+                //act
+                var repos = GetRepository(context);
+                var entity = await repos.Get(id);
+                entity.Title = expected_title;
+                repos.Update(entity);
+
+                var actual_model = await repos.Get(id);
+
+                //assert
+                Assert.AreEqual(expected_title, actual_model.Title);
+            }
+        }
         
 
 

@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-   public interface IEmployeeService :ICrud<EmployeeDTO>
+   public interface IHistoryService:ICrud<History>
     {
         
-
     }
 }

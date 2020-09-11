@@ -9,7 +9,7 @@ namespace Data.Entities
         public string Name { get; set; }
         public  string  Surname { get; set; }
 
-        public decimal Salary { get; set; }
+       
 
        
         public List<EmployeePosition> Positions { get; set; }

@@ -20,7 +20,26 @@ namespace Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Employee>().HasData(new Employee[]
+            {
+    new Employee()
+         {
+            Id=1,
+            Name="Ruslan",
+            Surname="Dzobko",
+            
+        }, 
 
+            new Employee()
+            {
+                Id=2,
+            Name="Alina",
+            Surname="Trikoz",
+             
+            }
+            });
+            
         }
+        
     }
 }

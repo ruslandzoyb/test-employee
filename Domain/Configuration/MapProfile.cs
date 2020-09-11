@@ -16,6 +16,11 @@ namespace Domain.Configuration
                 .ForMember(x => x.Positions, y => y.MapFrom(x => x.Positions.Select(x => x.Position)))
                 .ReverseMap();
 
+            CreateMap<Position, PositionDTO>().ReverseMap();
+
+            CreateMap<EmployeePosition, History>().ReverseMap();
+               
+
 
         }
     }
