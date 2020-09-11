@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Data.Entities;
 using Domain.DTO;
 using Domain.Interfaces;
+using Domain.Validation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +38,16 @@ namespace PL.Controllers
         
         public async Task<ActionResult<EmployeeDTO>> Add([FromForm] EmployeeDTO employee) {
 
-            return await service.Add(employee);
+            try
+            {
+                return await service.Add(employee);
+            }
+            catch (CustomException ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+           
         }
 
     }

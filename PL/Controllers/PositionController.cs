@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.DTO;
 using Domain.Interfaces;
+using Domain.Validation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +29,16 @@ namespace PL.Controllers
         [HttpPost]
         public async Task<ActionResult<PositionDTO>> Add([FromForm] PositionDTO position)
         {
-            return await service.Add(position);
+            try
+            {
+                return await service.Add(position);
+            }
+            catch (CustomException ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpGet]
@@ -42,9 +52,20 @@ namespace PL.Controllers
             await service.Remove(id);
         }
         [HttpPut]
-        public async Task Update([FromForm] PositionDTO position)
+        public async Task<ActionResult> Update([FromForm] PositionDTO position)
         {
-            await service.Update(position);
+            try
+            {
+                await service.Update(position);
+                return Ok();
+            }
+            catch (CustomException ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+            
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Domain.DTO;
 using Domain.Interfaces;
+using Domain.Validation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +29,16 @@ namespace PL.Controllers
         [HttpPost]
         public async Task<ActionResult<History>> AddHistory([FromForm] History history )
         {
-            return Ok(await service.Add(history));
+            try
+            {
+                return Ok(await service.Add(history));
+            }
+            catch (CustomException ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }
