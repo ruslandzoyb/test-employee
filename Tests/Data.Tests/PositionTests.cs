@@ -66,12 +66,82 @@ namespace Tests.Data.Tests
         }
 
 
+           [Test]
+           public async Task Get()
+        {
+            int expectedId = 2;
+            string title = "Senior DEV";
+
+            using (var context = new EmployeeContext(Helper.GetContextInMemory()))
+            {
+                //act
+                var repos = GetRepository(context);
+                var entity = await repos.Get(expectedId);
+
+                //assert
+                Assert.Multiple(() =>
+                {
+                    Assert.AreEqual(expectedId,entity.Id);
+                    Assert.AreEqual(title, entity.Title);
+                });
+
+            }
+        }
+
+
+        [Test]
+        public async Task GetList()
+        {
+            using (var context = new EmployeeContext(Helper.GetContextInMemory()))
+            {
+                //arrange
+                var repos = GetRepository(context);
+                var expected_list = GetPositions().ToList();
+
+                //act
+                var actual_list = (await repos.GetList()).ToList();
+
+                //assert
+                for (int i = 0; i < expected_list.Count(); i++)
+                {
+                    Assert.AreEqual(expected_list[i].Id, actual_list[i].Id);
+                    Assert.AreEqual(expected_list[i].Title, actual_list[i].Title);
+
+                }
+
+            }
+
+        }
+
+        
 
 
         
         private IPositionRepository GetRepository(EmployeeContext context)
         {
             return new PositionRepository(context);
+        }
+
+        private IEnumerable<Position> GetPositions()
+        {
+            return new Position[]
+              {
+                  new Position()
+                  {
+                      Id = 1,
+                      Title = "Junior DEV"
+                  },
+                  new Position()
+                  {
+                      Id = 2,
+                      Title = "Senior DEV"
+                  },
+                  new Position()
+                  {
+                      Id = 3,
+                      Title = "Junior QA"
+                  }
+              };
         }
 
     }
