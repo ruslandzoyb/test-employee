@@ -1,8 +1,8 @@
 
 <div>
     <form>
-        <button style="float: left; margin-bottom: 10px;" type="button" class="btn btn-primary">Добавить сотрудника</button>
-        <button style="float: right; margin-bottom: 10px" type="button" class="btn btn-dark" (click)="OnCreatePosition">Добавить должность</button>
+        <button style="float: left; margin-bottom: 10px;" type="button" class="btn btn-primary" (click)="AddEmployee()">Добавить сотрудника</button>
+        <button style="float: right; margin-bottom: 10px" type="button" class="btn btn-dark" (click)="AddPosition()">Добавить должность</button>
       
     </form>
 
@@ -18,15 +18,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of histories">
-              <td>{{item.id}}</td>
+          <tr *ngFor="let item of histories; index as i">
+              <td>{{i+1}}</td>
               <td>{{item.position.title}}</td>
               <td>{{item.employee.name +" "+ item.employee.surname}} </td>
-              <td>{{item.salary}}</td>
-              <td>{{item.hired}}</td>
-              <td>{{item.fired}}</td>
+              <td>{{item.salary}}</td>              
+              <td date>{{item.hired | date:'M/d/yy'}}</td>
+              <td>{{item.fired | date:'M/d/yy'}}</td>
           </tr>
         </tbody>
       </table>
 
 </div>
+

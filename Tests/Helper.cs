@@ -1,5 +1,7 @@
-﻿using Data;
+﻿using AutoMapper;
+using Data;
 using Data.Entities;
+using Domain.Configuration;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -42,7 +44,24 @@ namespace Tests
             }
             });
 
+
+            context.Employees.AddRange(new Employee[]
+            {
+                new Employee(){Id=1,Name="Ron",Surname="Viz"},
+                new Employee(){Id=2,Name="Harry",Surname="Pot"},
+                new Employee(){Id=3,Name="Hermiona",Surname="Gren"},
+                new Employee(){Id=4,Name="Lord",Surname="Vold"},
+
+            });
+
             context.SaveChanges();
+        }
+
+
+
+        public static IMapper GetMapper()
+        {
+            return new MapperConfiguration(x=>x.AddProfile( new MapProfile())).CreateMapper();
         }
 
 

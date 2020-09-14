@@ -3,9 +3,10 @@ export class Employee{
     Id :number;
     Name : string;
     Surname :string;
-    Hired :Date;
-    Fired :Date;
-    Salary :number;
-    Position :Position;
+    Positions: Position[];
+    // Hired :Date;
+    // Fired :Date;
+    // Salary :number;
+    // Position :Position;
 
 }

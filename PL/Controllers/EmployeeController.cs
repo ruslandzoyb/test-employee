@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http.Description;
 using Data.Entities;
 using Domain.DTO;
 using Domain.Interfaces;
@@ -27,6 +28,13 @@ namespace PL.Controllers
             return Ok(await service.Get(id));
         }
 
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<EmployeeDTO>>> Get()
+        {
+            return Ok(await service.GetList());
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -36,18 +44,21 @@ namespace PL.Controllers
 
         [HttpPost]
         
-        public async Task<ActionResult<EmployeeDTO>> Add([FromForm] EmployeeDTO employee) {
+        public async Task<IActionResult> Add([FromBody] EmployeeDTO employee) {
 
+            EmployeeDTO model ;
             try
             {
-                return await service.Add(employee);
+                
+              model=   await service.Add(employee);
             }
             catch (CustomException ex)
             {
 
                 return BadRequest(ex.Message);
             }
-           
+            return CreatedAtAction(nameof(Get), new { id = model.Id }, model);
+
         }
 
     }

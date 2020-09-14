@@ -10,6 +10,6 @@ namespace Domain.DTO
         public string Name { get; set; }
         public string Surname { get; set; }
 
-        public IEnumerable<PositionDTO> Positions { get; set; }
+        public ICollection<PositionDTO> Positions { get; set; } = new List<PositionDTO>();
     }
 }

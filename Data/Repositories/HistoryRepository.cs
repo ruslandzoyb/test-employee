@@ -18,6 +18,8 @@ namespace Data.Repositories
         public async Task<IEnumerable<EmployeePosition>> GetListWithDetails()
         {
             return await dbset.Include(x => x.Employee).Include(x => x.Position).ToListAsync();
+                
+            
         }
 
         public async Task<EmployeePosition> GetWithDetails(int id)

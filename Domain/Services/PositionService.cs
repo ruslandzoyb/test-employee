@@ -6,6 +6,7 @@ using Domain.Interfaces;
 using Domain.Validation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,7 +44,8 @@ namespace Domain.Services
 
         public async Task<IEnumerable<PositionDTO>> GetList()
         {
-            return mapper.Map<IEnumerable<PositionDTO>>(await db.PositionRepository.GetList());
+            return mapper.Map<IEnumerable<PositionDTO>>(await db.PositionRepository.WithDetails());
+           
         }
 
         public async Task Remove(int id)
@@ -54,9 +56,11 @@ namespace Domain.Services
 
         public async Task Update(PositionDTO entity)
         {
+
             BLValidation.CheckPosition(entity);
             db.PositionRepository.Update(mapper.Map<Position>(entity));
             await db.Save();
+            
         }
         private async Task<Position> IsPositionExist(PositionDTO position)
         {

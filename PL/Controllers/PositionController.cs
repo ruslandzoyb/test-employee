@@ -27,7 +27,7 @@ namespace PL.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<PositionDTO>> Add([FromForm] PositionDTO position)
+        public async Task<ActionResult<PositionDTO>> Add(  PositionDTO position)
         {
             try
             {

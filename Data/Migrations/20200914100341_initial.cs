@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -66,12 +66,34 @@ namespace Data.Migrations
             migrationBuilder.InsertData(
                 table: "Employees",
                 columns: new[] { "Id", "Name", "Surname" },
-                values: new object[] { 1, "Ruslan", "Dzobko" });
+                values: new object[,]
+                {
+                    { 1, "Ruslan", "Dzobko" },
+                    { 2, "Alina", "Trykoz" },
+                    { 3, "Max", "Maluk" }
+                });
 
             migrationBuilder.InsertData(
-                table: "Employees",
-                columns: new[] { "Id", "Name", "Surname" },
-                values: new object[] { 2, "Alina", "Trikoz" });
+                table: "Positions",
+                columns: new[] { "Id", "Title" },
+                values: new object[,]
+                {
+                    { 1, "Dev" },
+                    { 2, "QA" },
+                    { 3, "BA" },
+                    { 4, "Manager" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "EmployeePositions",
+                columns: new[] { "Id", "EmployeeId", "Fired", "Hired", "PositionId", "Salary" },
+                values: new object[,]
+                {
+                    { 2, 1, null, new DateTime(2020, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 2500.0 },
+                    { 4, 3, null, new DateTime(2018, 10, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1300.0 },
+                    { 3, 2, new DateTime(2017, 1, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2016, 3, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 800.0 },
+                    { 1, 2, null, new DateTime(2017, 5, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 1000.0 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeePositions_EmployeeId",

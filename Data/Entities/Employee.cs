@@ -9,10 +9,9 @@ namespace Data.Entities
         public string Name { get; set; }
         public  string  Surname { get; set; }
 
-       
+        public ICollection<EmployeePosition> Positions { get; set; } = new List<EmployeePosition>();
 
-       
-        public List<EmployeePosition> Positions { get; set; }
+        
 
     }
 }

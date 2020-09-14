@@ -32,9 +32,9 @@ namespace Domain.Services
                 return mapper.Map<EmployeeDTO>(exist);
             }
 
-           var model= await db.EmployeeRepository.Add(mapper.Map<Employee>(entity));
-            entity.Id = model.Id;
+           var model= await db.EmployeeRepository.Add(mapper.Map<Employee>(entity));           
             await db.Save();
+            entity.Id = model.Id;
             return entity;
 
         }
@@ -46,7 +46,7 @@ namespace Domain.Services
 
         public async Task<IEnumerable<EmployeeDTO>> GetList()
         {
-            return mapper.Map<IEnumerable<EmployeeDTO>>(await db.EmployeeRepository.GetList());
+           return  mapper.Map<IEnumerable<EmployeeDTO>>( await db.EmployeeRepository.GetListWithDetails());
         }
 
         public async Task Remove(int id)

@@ -14,7 +14,7 @@ namespace Domain.DTO
         public PositionDTO Position { get; set; }
         public double Salary { get; set; }
 
-        public DateTime Hired { get; set; }
+        public DateTime Hired { get; set; } 
         public DateTime ? Fired { get; set; }
 
 

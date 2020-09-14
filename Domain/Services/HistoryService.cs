@@ -6,6 +6,7 @@ using Domain.Interfaces;
 using Domain.Validation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,7 @@ namespace Domain.Services
         public async Task<History> Add(History entity)
         {
             BLValidation.CheckHistory(entity);
+             await  HasEmployeePosition(entity.EmployeeId);
             var history=  await db.HistoryRepository.Add(mapper.Map<EmployeePosition>(entity));
             await db.Save();
             entity.Id = history.Id;
@@ -36,7 +38,9 @@ namespace Domain.Services
 
         public async Task<IEnumerable<History>> GetList()
         {
-            return mapper.Map<IEnumerable<History>>(await db.HistoryRepository.GetListWithDetails());
+            var m = ( await db.HistoryRepository.GetListWithDetails());
+             var map=  mapper.Map<List<History>>(m);
+            return map;
         }
 
         
@@ -52,6 +56,19 @@ namespace Domain.Services
             BLValidation.CheckHistory(entity);
             db.HistoryRepository.Update(mapper.Map<EmployeePosition>(entity));
             await db.Save();
+
+        }
+
+        private async Task HasEmployeePosition(int id)
+        {
+            var history = await db.HistoryRepository.Get(x=>x.EmployeeId==id&&x.Fired ==null) ;
+            if (history!=null)
+            {
+                history.Fired = DateTime.Now;
+                db.HistoryRepository.Update(history);
+                await db.Save();
+            }          
+            
 
         }
     }
